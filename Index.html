@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Administrasi Keuangan</title>
+    <link rel="manifest" href="manifest.json">
+    <script>
+        // Daftarkan Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log("Service Worker terdaftar!", reg))
+                .catch(err => console.log("Service Worker gagal!", err));
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: gray;
+        }
+        h1 {
+            text-align: center;
+        }
+        input, button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow:5px  5px 8px green;
+        }
+        button {
+            background-color: green;
+            border: none;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+        }
+        .hapusSemuaData {
+            background-color: red;
+            color: black;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        #dataTable {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Aplikasi Administrasi Keuangan</h1>
+
+    <label>Nama Lengkap:</label>
+    <input type="text" id="nama">
+
+    <label>Nominal Pembayaran:</label>
+    <input type="number" id="nominal">
+
+    <label>Tanggal Pembayaran:</label>
+    <input type="date" id="tanggal">
+
+    <button onclick="tambahData()">Tambah Pembayaran</button>
+    <button class="hapusSemuaData" onclick="hapusSemuaData()">Hapus Semua Data</button>
+
+    <h2>Cari Total Pembayaran per Orang</h2>
+    <input type="text" id="cariNama" placeholder="Masukkan nama">
+    <button onclick="cariTotal()">Cari</button>
+
+    <h2>Rincian Pembayaran</h2>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Nominal</th>
+                <th>Tanggal</th>
+            </tr>
+        </thead>
+        <tbody id="dataBody"></tbody>
+    </table>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
