@@ -62,3 +62,23 @@ function cariTotal() {
 
 // Load data saat pertama kali aplikasi dibuka
 loadData();
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    deferredPrompt = event;
+
+    // Tampilkan tombol install (misalnya di HTML)
+    const installButton = document.getElementById('install-btn');
+    installButton.style.display = 'block';
+
+    installButton.addEventListener('click', () => {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+            }
+            deferredPrompt = null;
+        });
+    });
+});
